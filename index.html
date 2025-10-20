@@ -53,21 +53,21 @@
 		[33.9755287354134, -6.866899000901704],
 		[33.97564197781954, -6.866762445124764]
 	], {
-		color: 'blue',
+		color: 'red',
 		fillColor: '#3388ff',
 		fillOpacity: 0.5
 	}).addTo(map).bindPopup("laboratoire antidopage");
 
 	const route = L.polyline([
-		[33.97602735392519, -6.865729345243314],
-		[33.975589681879896, -6.865043685481294],
-		[33.975043523860016, -6.8642317199736365]
+		[33.97480972264147, -6.870480632897897],
+		[33.97642940913182, -6.86914024656245],
+		[33.97735039357123, -6.868163679375196]
 	], {
-		color: 'gray',
+		color: 'orange',
 		weight: 4,
 		dashArray: '6, 6',
 		opacity: 0.7
-	}).addTo(map).bindPopup("Avenu d'espagne");
+	}).addTo(map).bindPopup("Avenu Allal Al Fassi");
 
 	function addLabel(polygon, labelText) {
 		const center = polygon.getBounds().getCenter();
