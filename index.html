@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>batiments et route</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		#map {
+			height: 100vh;
+			width: 100%;
+		}
+		.label {
+			background-color: white;
+			padding: 2px 6px;
+			border-radius: 4px;
+			border: 1px solid #666;
+			font-size: 13px;
+		}
+	</style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script>
+	const map = L.map('map').setView([33.9792, -6.8638], 18);
+
+	L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+	const polygon1 = L.polygon([
+		[33.97680032288555, -6.865789535004037],
+		[33.976721767244705, -6.866037635575821],
+		[33.976912545103716, -6.866132364885047],
+		[33.9770023227716, -6.8658977970717245]
+	], {
+		color: 'green',
+		fillColor: 'limegreen',
+		fillOpacity: 0.5
+	}).addTo(map).bindPopup("département topo");
+
+	const polygon2 = L.polygon([
+		[33.975519298539396, -6.866572784323459],
+		[33.97540605596985, -6.866716926532451],
+		[33.9755287354134, -6.866899000901704],
+		[33.97564197781954, -6.866762445124764]
+	], {
+		color: 'blue',
+		fillColor: '#3388ff',
+		fillOpacity: 0.5
+	}).addTo(map).bindPopup("laboratoire antidopage");
+
+	const route = L.polyline([
+		[33.97602735392519, -6.865729345243314],
+		[33.975589681879896, -6.865043685481294],
+		[33.975043523860016, -6.8642317199736365]
+	], {
+		color: 'gray',
+		weight: 4,
+		dashArray: '6, 6',
+		opacity: 0.7
+	}).addTo(map).bindPopup("Avenu d'espagne");
+
+	function addLabel(polygon, labelText) {
+		const center = polygon.getBounds().getCenter();
+		L.marker(center, {
+			icon: L.divIcon({
+				className: 'label',
+				html: labelText,
+				iconSize: [60, 20]
+			})
+		}).addTo(map);
+	}
+	const popup = L.popup();
+	function onMapClick(e) {
+		popup
+			.setLatLng(e.latlng)
+			.setContent(`Vous avez cliqué à ${e.latlng.toString()}`)
+			.openOn(map);
+	}
+	map.on('click', onMapClick);
+</script>
+
+</body>
+</html>
